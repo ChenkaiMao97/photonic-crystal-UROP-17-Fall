@@ -1,0 +1,23 @@
+(define-param eps 11.75)
+(define-param v 0.199)
+(define-param pmlw 1)
+(define-param endt 400)
+(define-param fcen 0.5)
+(define-param df 0.2)
+(set! geometry-lattice (make lattice (size 10 10 no-size)))
+(set! default-material (make dielectric (epsilon 50)))
+(set! sources (list (make source
+                   (src (make gaussian-src (frequency fcen) (fwidth df)))
+                   (component Ex)
+                   (amplitude 100)
+                   (center (+(* -0.1 sx) (* v (meep-time))) 0)
+                   (end-time 10))))
+
+(define radtest
+(add-flux 0.5 0.2 3
+(make flux-region
+          (center 0 0) (size 0 (/ sy 2)))))
+(run-sources+ 20
+           (at-end output-efield-x))
+(print (meep-time))
+(display-fluxes radtest)

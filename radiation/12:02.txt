@@ -1,0 +1,3 @@
+目前的情况是这样：
+1. source component选Ex或Ey的时候， output Ex或Ey情况相似，源消失地都很慢，output Hz的时候不一样，源消失得很快，并且场也更强。
+2. source component选Hz的时候

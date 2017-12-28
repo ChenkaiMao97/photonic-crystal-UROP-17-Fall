@@ -1,0 +1,88 @@
+% chooseband.m
+% This file loops through of kx, ky points and allows the user to choose
+% the band of interest
+% Author: hyzhou, 01/25/2016
+% please run MEEPnodalLineExtract.m before running this script
+
+%% Find bands
+kxvals = unique(datatable(:,1));
+kyvals = unique(datatable(:,2));
+chosentab = [];
+% we assume that the primary direction of examination is the x direction
+for i = 1:length(kyvals)
+    kyc = kyvals(i);
+    ind = abs(datatable(:,2)-kyc)<1e-6;
+    ind1 = abs(table1(:,2)-kyc)<1e-6;
+    kxall = datatable(ind,1);
+    tableall = datatable(ind,:);
+    kx2 = kx1(ind1);
+    table2 = table1(ind1,:);
+    hold off;
+    plot(kxall,tableall(:,4),'bo');
+    hold on
+    plot(kx2,table2(:,4),'ro');
+    for j = 1:length(kx2)
+        plot(kx2(j),table2(j,4),'go');
+        c = '';
+        while isempty(c)
+            c = input('Green point good? y for yes, # for different band number, n for no\n','s');
+        end
+        % bands are counted with the lowest one as 1
+        if c == 'y'
+            chosentab = vertcat(chosentab,table1(j,:));
+        elseif c == 'n'
+            plot(kx2(j),table2(j,4),'bo');
+        else
+            c = str2double(c);
+            ind2 = abs(kxall-kx2(j))<1e-6;  % points with the same kx
+            tabletemp = tableall(ind2,:);
+            [~,ind2] = sort(tabletemp(:,4));
+            plot(kx2(j),table2(j,4),'bo');
+            plot(kx2(j),tabletemp(ind2(c),4),'go');
+            c1 = input('Substitution good? y for yes, n for no','s');
+            % discard point if substitutino not good
+            if c1 == 'y'
+                chosentab = vertcat(chosentab,tabletemp(ind2(c),:));
+            else
+                plot(kx2(j),table2(j,4),'bo');
+            end
+        end
+    end
+end
+
+%% Plot results on chosen table
+% let us first look at the decay of cx
+kx2 = chosentab(:,1);
+ky2 =  chosentab(:,2);
+refst = 1;
+refend = 4.25;  % in a future version this should be read from the file
+distvals = linspace(refst,refend,nref+1);
+lambda = zeros(size(kx1));
+amp = zeros(size(kx1));
+for i = 1:size(table1(:,1))
+    cxvals = abs(table1(i,[16+4:8:16+4+8*nref]));
+    % change to 4 for cy and 6 for cz 
+    %f3 = figure;
+    %plot(distvals,log(cxvals),'o-')
+    x = distvals;
+    y = (cxvals);
+    [temp,~,~] = createFit(x,y);
+    lambda(i) = -1/temp(2);
+    amp(i) = temp(1);
+    %pause(1)
+    %close(f3)
+end
+figure
+stem3(kx1,ky1,table1(:,4))
+figure;
+stem3(kx1,ky1,amp)
+zlim([0,100])
+figure
+stem3(kx1,ky1,lambda)
+zlim([0,10])
+ind = abs(ky1-kyc)<1e-6;
+kx2 = kx1(ind);
+lambda2 = lambda(ind);
+amp2 = amp(ind);
+freq2 = table1(ind,4);
+kz2 = sqrt(kx2.^2-freq2.^2);

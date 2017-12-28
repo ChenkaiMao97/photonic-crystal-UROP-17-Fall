@@ -1,0 +1,13 @@
+READ "../liquid_light_line.dat"
+s0 linestyle 1
+
+READ "band_Q_tm.dat"
+s1 linestyle 0
+s1 symbol 1; s1 symbol color 1; s1 symbol size 0.5
+
+READ "large_Q_2.dat"
+s2 linestyle 0
+s2 symbol 3; s2 symbol color 2; s2 symbol size 0.5
+
+xaxis label "\1k\s\v{0.4}x\Na\0/2\xp"
+yaxis label "\xw\1a\0/2\xp\1c"

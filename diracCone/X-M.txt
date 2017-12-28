@@ -1,0 +1,23 @@
+(define-param eps 12.5)
+(define-param a 1)
+(define-param r 0.2)
+(define-param sx 10)
+(define-param sy sx)
+(define-param N (/ sx 2))
+(define-param fcen 0.5)
+(define-param df 1)
+
+(set! geometry-lattice (make lattice (size 1 1 no-size)))
+
+(set! geometry
+        (list
+        (make cylinder (center 0 0) (radius r) (height infinity) (material (make dielectric (epsilon eps))))))
+
+(set-param! resolution 20)
+(set! sources (list
+        (make source
+        (src (make gaussian-src (frequency fcen) (fwidth df)))
+        (component Ez) (center 0.55 -0.65))))
+
+(define-param k-interp 50)
+(run-k-points 200 (interpolate k-interp (list (vector3 0.5 0) (vector3 0.5 0.5))))
