@@ -11,7 +11,7 @@ The project is done with [MEEP](https://meep.readthedocs.io/en/latest/) (MIT Ele
 ## Folders
 The folders test, band, diracCone, Transmission_Spectrum, band are practice examples copied from [meep examples](https://meep.readthedocs.io/en/latest/Scheme_Tutorials/Basics/).
 
-Most of my own simulation is done in folder TE and radiation, where TE is used for calculating the band structure and tuning parameters, and radiation is when the electron is added and studying the radiation properties.
+Most of my own simulation is done in folder TE and radiation, where TE is used for calculating the band structure and tuning parameters, and radiation is when the electron is added and we study its radiation properties.
 
 Folder 3DCode is example code of 3D from Yi Yang, which I haven't studied yet. :joy:
 
