@@ -14,3 +14,10 @@ The folders test, band, diracCone, Transmission_Spectrum, band are practice exam
 Most of my own simulation is done in folder TE and radiation, where TE is used for calculating the band structure and tuning parameters, and radiation is when the electron is added and studying the radiation properties.
 
 Folder 3DCode is example code of 3D from Yi Yang, which I haven't studied yet. :joy:
+
+## Major Result at the Moment:
+The simulated photonic band structure can be fond [here](https://github.com/ChenkaiMao97/photonic-crystal-UROP-17-Fall/blob/master/TE/test2/12_11/whole_dispersion.png), in which the line is the dispersion of the electron, v = 0.119c.
+
+The crystal lattice for simulation can be found [here](https://github.com/ChenkaiMao97/photonic-crystal-UROP-17-Fall/blob/master/TE/12_16/eps.png).
+
+The radiation spectrum is still under studying.
